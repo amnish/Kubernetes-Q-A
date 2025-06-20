@@ -1,0 +1,69 @@
+If pod is restarting due to probe, it is mostly livenessProbe is failing
+
+Type of probe:
+
+	• livenessProbe: Check if the container is alive, if tis fails, Kubernetes fails and restart the container 
+	• RedinessProbe:  Checks if container is ready to serve the traffic. If it failes, the pod is removed from service end point
+	• StartupProbe:  Designed for slow-starting apps. Temporarily disable liveness and readiness probe
+	
+	
+Common issues:
+     
+   1. Wrong Probe path or commnad:
+       - HTTP/HTTPs: the path or port may not be responding or is misconfigure
+       - TCP port may not be opne
+       - command might return a non-zero exit code
+	2. Insufficient initial delay:
+		a. The probe start check too early before the app ready. So increase initialDelaySeconds
+	3. Timeout are short:
+		a. App is responding slowly and timeout is aggressive. Fix increase timeoutseconds
+	4. Unstable application:
+		a. Application itself is crashing or unresponsive periodically.
+	5. Wrong success/failure Threshold:
+		a. Kuberentes give up after too few failures, Fid failureThreshold and periodSeconds
+
+
+How to diagnose:
+		Kubectl describe pods
+		
+		Looks for erro msg like livenessProbe failed: Httpp probe failedwith status code 500
+		
+		Check logs:
+		Kubectl logs podname --previous
+		
+     Check probe config
+
+LivenessProbe:
+	httpGet:
+		Path: /heatlhz
+		Port: 8080
+	InitialDelaySeconds: 10
+	timeoutSeconds: 1
+	periodSeconds: 10
+	failureThreshold: 3
+	
+	
+Fix suggestion:
+     -  Ensure the probe path is correct and the app serves it
+	- Add the startupProbe if you app is slowing booting up or need extra time on startup
+	- Increase initialDelaySeconds and timeoutSeconds
+	- User proper health checks in the app(e.g /healthz returning 200 OK)
+startupProbe:
+   httpGet:
+            path: /healtz
+           port: 8080
+  initialDelaySeconds: 10
+timeoutSeconds: 1
+periodSeconds: 10
+failureThreshold: 3
+
+LivenessProbe:
+     httpGet:
+        path: /healthz
+         port: 8080
+    initialDelaySeconds: 10
+LivenessProbe:
+     httpGet:
+        path: /readyz
+         port: 8080
+    initialDelaySeconds: 10
