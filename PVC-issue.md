@@ -103,6 +103,7 @@ volumeBindingMode: WaitForFirstConsumer
 When you create a PVC and specify a storageClassName, Kubernetes uses that class to dynamically provision a PersistentVolume.
 
 
+'''yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -114,4 +115,5 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: fast-ssd
+  '''
 
