@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/ae60c599-5ac7-4757-9699-c98440b999f1)👉 1. If you have a Pod with initContainers that fail, but the main container has restartPolicy: Never, what happens to the Pod status?
+👉 1. If you have a Pod with initContainers that fail, but the main container has restartPolicy: Never, what happens to the Pod status?
 
 Ans. If init container fails, it will not start the main container at all. Kubernetes ensure that init container start first completely before star the main container. 
 Main container policy does not effect the init container.
@@ -102,9 +102,10 @@ They are allowed unless you explicitly define egress rules.
 
 
 👉 15. If a Persistent Volume gets corrupted, can multiple PVCs bound to it cause cascading failures across different namespaces?
- yes. It will fail with error "crash due to read/write error" and then enter crashLoopBackOFf"![image](https://github.com/user-attachments/assets/bea66c73-052c-4c26-9314-0bbfcc721b30)
+ yes. It will fail with error "crash due to read/write error" and then enter crashLoopBackOFf
 
  16. Difference between affinity and anti-affinity and taint
+     ![image](https://github.com/user-attachments/assets/ae60c599-5ac7-4757-9699-c98440b999f1)
 Feature	   Affinity	                      Anti-Affinity	      Taints & Tolerations
 Goal	Attract Pods to nodes/Pods	Repel Pods from nodes/Pods    Prevent Pods from being scheduled on nodes
 Scope	Node or Pod level	                   Pod level	      Node level
