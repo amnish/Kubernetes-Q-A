@@ -106,10 +106,5 @@ They are allowed unless you explicitly define egress rules.
 
  16. Difference between affinity and anti-affinity and taint
      ![image](https://github.com/user-attachments/assets/ae60c599-5ac7-4757-9699-c98440b999f1)
-Feature	   Affinity	                      Anti-Affinity	      Taints & Tolerations
-Goal	Attract Pods to nodes/Pods	Repel Pods from nodes/Pods    Prevent Pods from being scheduled on nodes
-Scope	Node or Pod level	                   Pod level	      Node level
-Control	Soft or hard (preferred/required)	Soft or hard	Hard (NoSchedule, PreferNoSchedule, NoExecute)
-Use Case	Co-locate workloads	Spread workloads	Isolate workloads
 
 
