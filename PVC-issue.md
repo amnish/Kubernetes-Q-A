@@ -37,6 +37,7 @@ Look for events related to volume mounting or PVC binding. Common messages inclu
 Step3: 
 Check PVC Status
 `kubectl get pvc`
+
 `kubectl describe pvc <pvc name>`
 
 Looks for:
