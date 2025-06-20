@@ -2,7 +2,7 @@ If a PersistentVolumeClaim (PVC) is stuck in a pod in Kubernetes, it usually ind
 
 Step1 : check the pods
 
-Kubectl get pods
+`Kubectl get pods`
 
 Look for pod in pending or containerCreating state
 🟡 Pending State
@@ -26,7 +26,7 @@ Look for pod in pending or containerCreating state
 
 Step 2: describe the pods
 
-Kubectl describe pod podname
+`Kubectl describe pod podname`
 
 Look for events related to volume mounting or PVC binding. Common messages include:
 • Unable to mount volumes
@@ -36,8 +36,8 @@ Look for events related to volume mounting or PVC binding. Common messages inclu
 
 Step3: 
 Check PVC Status
-kubectl get pvc
-kubectl describe pvc <pvc name>
+`kubectl get pvc`
+`kubectl describe pvc <pvc name>`
 
 Looks for:
 Status: should be bound
@@ -50,9 +50,8 @@ Events: Error like: no persistent volume available.
 
 Step 4: check PV status:
 
-kubectl get pv
-kubectl describe pv 
-
+`kubectl get pv
+kubectl describe pv`
 Ensure the PV is:
 • Available or bound to correct PVC and 
 • Matching storage class, access modes, and capacity
@@ -60,7 +59,7 @@ Ensure the PV is:
 
 Step 5:  if dynamic provisioning used
 
-kubectl get storageclass
+`kubectl get storageclass`
 
 Ensure correct provisioner is configured and the storage backend is healthy
 
@@ -70,7 +69,7 @@ If pvc or pv is stuck in bad state
 	1. Delete the pod
 
 If PVC stuck and not bound
-kubectl delete pvc  pvc name
+`kubectl delete pvc  pvc_name`
 
 
 Then recreate it 
@@ -88,6 +87,7 @@ A StorageClass provides a way for administrators to describe the "classes" of st
 • To offer different performance tiers (e.g., fast SSD vs. standard HDD).
 • To abstract storage details from developers.
 
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -97,7 +97,7 @@ parameters:
   type: gp2
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
-
+```
 
 
 When you create a PVC and specify a storageClassName, Kubernetes uses that class to dynamically provision a PersistentVolume.
