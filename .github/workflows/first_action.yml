@@ -25,4 +25,4 @@ jobs:
     - name: Run tests
       run: |
         cd src
-        python app.py
+        python hello.py
